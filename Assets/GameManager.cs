@@ -9,7 +9,11 @@ public class GameManager : MonoBehaviour
     public string nextSceneName;
     private GameObject text;
     private GameObject restartButton;
+
     private GameObject nextButton;
+
+    private GameObject[] blocks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,15 +21,19 @@ public class GameManager : MonoBehaviour
         restartButton = GameObject.Find("RestartButton");
         nextButton = GameObject.Find("NextButton");
         restartButton.SetActive(false);
-        nextButton.SetActive(false);
 
-        blocks = GameObject.FindGameObjectWithTag("Block");
+
+        blocks = GameObject.FindGameObjectsWithTag("Block");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        blocks = GameObject.FindGameObjectsWithTag("Block");
+        if (blocks.Length==0)
+        {
+            GameClear();
+        }
     }
     public void GameOver()
     {
@@ -50,5 +58,6 @@ public class GameManager : MonoBehaviour
         text.GetComponent<Text>().text = SceneManager.GetActiveScene().name;
         yield return new WaitForSeconds(2.0f);
         text.GetComponent<Text>().text = "";
+
     }
 }
